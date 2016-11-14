@@ -34,6 +34,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
+const productController = require('./controllers/product');
 
 /**
  * API keys and Passport configuration.
@@ -68,6 +69,7 @@ app.use(sass({
   dest: path.join(__dirname, 'public')
 }));
 app.use(logger('dev'));
+// app.use(logger({format: ':remote-addr :method :url :req[header] :res[header]'}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
@@ -214,6 +216,12 @@ app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRed
   res.redirect('/api/pinterest');
 });
 
+/**
+ * Shop routes
+ */
+
+app.get('/product', productController.getProducts);
+//
 /**
  * Error Handler.
  */
