@@ -2,6 +2,32 @@ extends layout
 
 block content
     .container
+        div.row(style='background:lightyellow;')
+            .container
+                ul.nav.navbar-nav
+                    li.dropdown
+                        a.dropdown-toggle(href='#', data-toggle='dropdown')
+                            | Categories
+                            b.caret
+                        ul.dropdown-menu
+                            li
+                                a(href='#') Necklace
+                            li
+                                a(href='#') Bracelet
+                            li
+                                a(href='#') Ring
+
+                ul.nav.navbar-nav.navbar-right
+                    li(class=(title == 'Cart') ? 'active' : undefined)
+                        btn.btn.btn-success(type='button', href='http://www.jquery2dotnet.com')
+                            span.fa.fa-shopping-cart
+                                | &nbsp;&nbsp;Cart (1) - $99
+
+
+                ul
+                    p(style="text-align:center;color:#980000;font-family: 'Comic Sans MS'; font-size:35px;")
+                        b
+                            | The Jewelry Shop
         .well.well-sm
             //p #{data.length}
             - var d = data
