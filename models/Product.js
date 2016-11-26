@@ -15,15 +15,5 @@ const productSchema = new mongoose.Schema({
 
 const Product = mongoose.model('Product', productSchema);
 
-var p1 = new Product({
-    sku:'123123',
-    title:'Rose Gold Basics Collar Necklace',
-    description:'Rose Gold-Tone Crystal Collar Necklace. This beautiful flower collar necklace features silk crystal stones set in rose gold-tone metal.',
-    brand:'G',
-    category:'necklace',
-    quantity:2,
-    price:99
-});
-p1.save();
 module.exports = Product;
 

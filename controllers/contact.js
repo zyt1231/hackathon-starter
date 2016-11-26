@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-const transporter = nodemailer.createTransport({
+ const transporter = nodemailer.createTransport({
   service: 'SendGrid',
   auth: {
     user: process.env.SENDGRID_USER,
@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-/**
+ /**
  * GET /contact
  * Contact form page.
  */
