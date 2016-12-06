@@ -19,7 +19,7 @@ block content
             li(class=(title == 'Cart') ? 'active' : undefined)
                 btn.btn.btn-success(type='button', href='http://www.jquery2dotnet.com')
                     span.fa.fa-shopping-cart
-                        | &nbsp;&nbsp;Cart (1) - $99
+                        | &nbsp;&nbsp;Cart ({{cartItems.length}}) - $ {{totalPrice}}
 
 
         ul
@@ -123,7 +123,7 @@ block content
                                                 | $ {{ item.price }}
 
                                             .col-xs-12.col-md-6
-                                                a.btn.btn-success(href='http://www.jquery2dotnet.com')
+                                                .btn.btn-success(ng-click="addItem(item)")
                                                     | Add to cart
 
     script.
@@ -131,10 +131,7 @@ block content
         var local_data =!{JSON.stringify(data)};
         console.log(local_data);
 
-        var app = angular.module('product', []);
-        app.controller('productCtrl', function ($scope) {
-            $scope.items = local_data;
-        });
+    script(src='/js/app.js')
 
 
 
