@@ -1,7 +1,7 @@
 extends layout
 
 block content
-    .container
+    .container(ng-app='product',ng-controller='productCtrl')
         ul.nav.navbar-nav
             li.dropdown
                 a.dropdown-toggle(href='#', data-toggle='dropdown')
@@ -28,10 +28,62 @@ block content
                     | The Jewelry Shop
         .row
             .col-md-3
-                .well.well-sm
-                    p ABC
-                .well.well-sm
-                    p DEF
+                .panel.panel-default
+                    .panel-heading
+                        h2.panel-title
+                            span.fa.fa-plus-square-o
+                            | Brand
+
+                    .panel-body
+                        ul.list-group
+                            li.checkbox.list-group-item
+                                label
+                                    input(type='checkbox', value='')
+                                    | Lia Sophia
+                            li.checkbox.list-group-item
+                                label
+                                    input(type='checkbox', value='')
+                                    | Luckey Brand
+                            li.checkbox.list-group-item
+                                label
+                                    input(type='checkbox', value='')
+                                    | Kate Spade
+                            li.checkbox.list-group-item
+                                label
+                                    input(type='checkbox', value='')
+                                    | Brighton
+                            li.checkbox.list-group-item
+                                label
+                                    input(type='checkbox', value='')
+                                    | handmade
+                            li.checkbox.list-group-item
+                                label
+                                    input(type='checkbox', value='')
+                                    | Unbranded
+                .panel.panel-default
+                    .panel-heading
+                        h2.panel-title
+                            span.fa.fa-plus-square-o
+                            | Price
+                    .panel-body
+                        ul.list-group
+                            li.list-group-item
+                                .radio
+                                    label
+                                        input(type='radio', name='optionsRadios')
+                                        |                                     up to $10
+                            li.list-group-item
+                                .radio
+                                    label
+                                        input(type='radio', name='optionsRadios')
+                                        |                                     $10 to $50
+                            li.list-group-item
+                                .radio
+                                    label
+                                        input(type='radio', name='optionsRadios')
+                                        |                                     over $50
+
+
 
             .col-md-9
                 .row
@@ -39,46 +91,41 @@ block content
                         //p #{data.length}
                         - var d = data
 
-                        strong Display
+                        strong Sort &nbsp;
+                        //.btn-group(data-toggle='buttons')
+                        //    label.btn.btn-success
+                        //        input#option1(type='radio', name='options')
+                        //        |  Low Price
+                        //    label.btn.btn-success
+                        //        input#option2(type='radio', name='options')
+                        //        |  High Price
                         .btn-group
                             a#list.btn.btn-default.btn-sm(href='#')
-                                span.glyphicon.glyphicon-th-list
-                                | List
+                                | Low Price
                             a#grid.btn.btn-default.btn-sm(href='#')
-                                span.glyphicon.glyphicon-th
-                                | Grid
+                                | High Price
 
 
-                    each val in d
+                    div(ng-animate="'animate'", ng-repeat='item in items | filter:searchText')
                         .item.col-xs-4.col-lg-4
                             .thumbnail
-                                img.group.list-group-image(src=val.img, alt='', style='height:250px')
+                                //image(src=val.img, alt='', style='height:250px')
+                                image.group.list-group-image(ng-src="{{ item.img }}", alt='', style='height:250px')
+                                //img.group.list-group-image(src=val.img, alt='', style='height:250px')
                                 .caption.hideOverflow
                                     h4.group.inner.list-group-item-heading
-                                        p=val.title
+                                        p {{ item.title }}
                                     .hideOverflow
                                         .group.hideOverflow(style='height:100px')
-                                            p=val.description
-                                            //| description
+                                            p {{ item.description }}
                                         .row
-                                            .col-xs-12.col-md-6
-                                                p.lead='$' + val.price
+                                            h4.col-xs-12.col-md-6
+                                                | $ {{ item.price }}
 
                                             .col-xs-12.col-md-6
                                                 a.btn.btn-success(href='http://www.jquery2dotnet.com')
                                                     | Add to cart
 
-
-                    //div(ng-app='product',ng-controller='productCtrl').well.well-sm
-                    //
-                    //    ul
-                    //        li(ng-animate="'animate'", ng-repeat='item in items | filter:searchText')
-                    //            .well
-                    //                img(ng-src='{{ item.img }}', width='128', height='128')
-                    //                h3 {{ item.title }}
-                    //                .alert.alert-success
-                    //                    strong {{ item.price | currency }}
-                    //                button.btn.btn-primary(ng-click='addToCart(item)') Buy!
     script.
         console.log("testing");
         var local_data =!{JSON.stringify(data)};
