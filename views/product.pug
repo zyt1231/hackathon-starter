@@ -2,94 +2,92 @@ extends layout
 
 block content
     .container
-        div.row(style='background:lightyellow;')
-            .container
-                ul.nav.navbar-nav
-                    li.dropdown
-                        a.dropdown-toggle(href='#', data-toggle='dropdown')
-                            | Categories
-                            b.caret
-                        ul.dropdown-menu
-                            li
-                                a(href='#') Necklace
-                            li
-                                a(href='#') Bracelet
-                            li
-                                a(href='#') Ring
+        ul.nav.navbar-nav
+            li.dropdown
+                a.dropdown-toggle(href='#', data-toggle='dropdown')
+                    | Categories
+                    b.caret
+                ul.dropdown-menu
+                    li
+                        a(href='#') Necklace
+                    li
+                        a(href='#') Bracelet
+                    li
+                        a(href='#') Ring
 
-                ul.nav.navbar-nav.navbar-right
-                    li(class=(title == 'Cart') ? 'active' : undefined)
-                        btn.btn.btn-success(type='button', href='http://www.jquery2dotnet.com')
-                            span.fa.fa-shopping-cart
-                                | &nbsp;&nbsp;Cart (1) - $99
+        ul.nav.navbar-nav.navbar-right
+            li(class=(title == 'Cart') ? 'active' : undefined)
+                btn.btn.btn-success(type='button', href='http://www.jquery2dotnet.com')
+                    span.fa.fa-shopping-cart
+                        | &nbsp;&nbsp;Cart (1) - $99
 
 
-                ul
-                    p(style="text-align:center;color:#980000;font-family: 'Comic Sans MS'; font-size:35px;")
-                        b
-                            | The Jewelry Shop
-        .well.well-sm
-            //p #{data.length}
-            - var d = data
+        ul
+            p(style="text-align:center;color:#980000;font-family: 'Comic Sans MS'; font-size:35px;")
+                b
+                    | The Jewelry Shop
+        .row
+            .col-md-3
+                .well.well-sm
+                    p ABC
+                .well.well-sm
+                    p DEF
 
-            strong Display
-            .btn-group
-                a#list.btn.btn-default.btn-sm(href='#')
-                    span.glyphicon.glyphicon-th-list
-                    | List
-                a#grid.btn.btn-default.btn-sm(href='#')
-                    span.glyphicon.glyphicon-th
-                    | Grid
+            .col-md-9
+                .row
+                    .well.well-sm
+                        //p #{data.length}
+                        - var d = data
 
-        #products.row.list-group
-            each val in d
-                .item.col-xs-4.col-lg-4
-                    .thumbnail
-                        img.group.list-group-image(src=val.img, alt='', style='height:250px')
-                        .caption
-                            h4.group.inner.list-group-item-heading
-                                p=val.title
-                            p.group.inner.list-group-item-text
-                                p=val.description
-                            .row
-                                .col-xs-12.col-md-6
-                                    p.lead='$' + val.price
+                        strong Display
+                        .btn-group
+                            a#list.btn.btn-default.btn-sm(href='#')
+                                span.glyphicon.glyphicon-th-list
+                                | List
+                            a#grid.btn.btn-default.btn-sm(href='#')
+                                span.glyphicon.glyphicon-th
+                                | Grid
 
-                                .col-xs-12.col-md-6
-                                    a.btn.btn-success(href='http://www.jquery2dotnet.com')
-                                        | Add to cart
-                //.item.col-xs-4.col-lg-4
-                //    .thumbnail
-                //        img.group.list-group-image(src='http://placehold.it/400x250/000/fff', alt='')
-                //        .caption
-                //            h4.group.inner.list-group-item-heading
-                //                | Product title
-                //            p.group.inner.list-group-item-text
-                //                | Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                //                | sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                //            .row
-                //                .col-xs-12.col-md-6
-                //                    p.lead
-                //                        | $21.000
-                //                .col-xs-12.col-md-6
-                //                    a.btn.btn-success(href='http://www.jquery2dotnet.com') Add to cart
-                //.item.col-xs-4.col-lg-4
-                //    .thumbnail
-                //        img.group.list-group-image(src='http://placehold.it/400x250/000/fff', alt='')
-                //        .caption
-                //            h4.group.inner.list-group-item-heading
-                //                | Product title
-                //            p.group.inner.list-group-item-text
-                //                | Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                //                | sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
-                //            .row
-                //                .col-xs-12.col-md-6
-                //                    p.lead
-                //                        | $21.000
-                //                .col-xs-12.col-md-6
-                //                    a.btn.btn-success(href='http://www.jquery2dotnet.com') Add to cart
+
+                    each val in d
+                        .item.col-xs-4.col-lg-4
+                            .thumbnail
+                                img.group.list-group-image(src=val.img, alt='', style='height:250px')
+                                .caption.hideOverflow
+                                    h4.group.inner.list-group-item-heading
+                                        p=val.title
+                                    .hideOverflow
+                                        .group.hideOverflow(style='height:100px')
+                                            p=val.description
+                                            //| description
+                                        .row
+                                            .col-xs-12.col-md-6
+                                                p.lead='$' + val.price
+
+                                            .col-xs-12.col-md-6
+                                                a.btn.btn-success(href='http://www.jquery2dotnet.com')
+                                                    | Add to cart
+
+
+                    //div(ng-app='product',ng-controller='productCtrl').well.well-sm
+                    //
+                    //    ul
+                    //        li(ng-animate="'animate'", ng-repeat='item in items | filter:searchText')
+                    //            .well
+                    //                img(ng-src='{{ item.img }}', width='128', height='128')
+                    //                h3 {{ item.title }}
+                    //                .alert.alert-success
+                    //                    strong {{ item.price | currency }}
+                    //                button.btn.btn-primary(ng-click='addToCart(item)') Buy!
     script.
         console.log("testing");
+        var local_data =!{JSON.stringify(data)};
+        console.log(local_data);
+
+        var app = angular.module('product', []);
+        app.controller('productCtrl', function ($scope) {
+            $scope.items = local_data;
+        });
 
 
 
