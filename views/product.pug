@@ -1,26 +1,18 @@
 extends layout
 
 block content
-    .container(ng-app='product',ng-controller='productCtrl')
-        ul.nav.navbar-nav
-            li.dropdown
-                a.dropdown-toggle(href='#', data-toggle='dropdown')
-                    | Categories
-                    b.caret
-                ul.dropdown-menu
-                    li
-                        a(href='#') Necklace
-                    li
-                        a(href='#') Bracelet
-                    li
-                        a(href='#') Ring
+    script.
+        console.log("testing");
+        var local_data = !{JSON.stringify(data)};
+        console.log(local_data);
 
+    script(src='/js/app.js')
+    .container(ng-app='product',ng-controller='productCtrl')
         ul.nav.navbar-nav.navbar-right
             li(class=(title == 'Cart') ? 'active' : undefined)
                 btn.btn.btn-success(type='button', href='http://www.jquery2dotnet.com')
                     span.fa.fa-shopping-cart
                         | &nbsp;&nbsp;Cart ({{cartItems.length}}) - $ {{totalPrice}}
-
 
         ul
             p(style="text-align:center;color:#980000;font-family: 'Comic Sans MS'; font-size:35px;")
@@ -36,52 +28,55 @@ block content
 
                     .panel-body
                         ul.list-group
+
                             li.checkbox.list-group-item
                                 label
-                                    input(type='checkbox', value='')
+                                    input(type='checkbox', ng-model='brandModel.LiaSophia')
                                     | Lia Sophia
+
                             li.checkbox.list-group-item
                                 label
-                                    input(type='checkbox', value='')
-                                    | Luckey Brand
+                                    input(type='checkbox', ng-model= 'brandModel.LuckyBrand')
+                                    | Lucky Brand
                             li.checkbox.list-group-item
                                 label
-                                    input(type='checkbox', value='')
+                                    input(type='checkbox', ng-model= 'brandModel.KateSpade')
                                     | Kate Spade
                             li.checkbox.list-group-item
                                 label
-                                    input(type='checkbox', value='')
+                                    input(type='checkbox', ng-model= 'brandModel.Brighton')
                                     | Brighton
                             li.checkbox.list-group-item
                                 label
-                                    input(type='checkbox', value='')
+                                    input(type='checkbox', ng-model= 'brandModel.handmade')
                                     | handmade
                             li.checkbox.list-group-item
                                 label
-                                    input(type='checkbox', value='')
+                                    input(type='checkbox', ng-model= 'brandModel.unbranded')
                                     | Unbranded
+
                 .panel.panel-default
                     .panel-heading
                         h2.panel-title
                             span.fa.fa-plus-square-o
-                            | Price
+                            | Categories
                     .panel-body
                         ul.list-group
                             li.list-group-item
                                 .radio
                                     label
-                                        input(type='radio', name='optionsRadios')
-                                        |                                     up to $10
+                                        input(type='radio', value = 'necklace', ng-model = 'categoryModel.name')
+                                        |                                     Necklace
                             li.list-group-item
                                 .radio
                                     label
-                                        input(type='radio', name='optionsRadios')
-                                        |                                     $10 to $50
+                                        input(type='radio', value = 'ring', ng-model = 'categoryModel.name')
+                                        |                                     Ring
                             li.list-group-item
                                 .radio
                                     label
-                                        input(type='radio', name='optionsRadios')
-                                        |                                     over $50
+                                        input(type='radio', value = 'earrings', ng-model = 'categoryModel.name')
+                                        |                                     Earrings
 
 
 
@@ -92,13 +87,6 @@ block content
                         - var d = data
 
                         strong Sort &nbsp;
-                        //.btn-group(data-toggle='buttons')
-                        //    label.btn.btn-success
-                        //        input#option1(type='radio', name='options')
-                        //        |  Low Price
-                        //    label.btn.btn-success
-                        //        input#option2(type='radio', name='options')
-                        //        |  High Price
                         .btn-group
                             a#list.btn.btn-default.btn-sm(href='#')
                                 | Low Price
@@ -106,8 +94,8 @@ block content
                                 | High Price
 
 
-                    div(ng-animate="'animate'", ng-repeat='item in items | filter:searchText')
-                        .item.col-xs-4.col-lg-4
+                    div(ng-animate="'animate'", ng-repeat='item in items | filter : filterByProperties')
+                        .item.col-xs-4.col-md-4.col-lg-4
                             .thumbnail
                                 //image(src=val.img, alt='', style='height:250px')
                                 image.group.list-group-image(ng-src="{{ item.img }}", alt='', style='height:250px')
@@ -116,22 +104,20 @@ block content
                                     h4.group.inner.list-group-item-heading
                                         p {{ item.title }}
                                     .hideOverflow
-                                        .group.hideOverflow(style='height:100px')
+                                        b.row.group.inner
+                                                | Brand : {{item.brand}}
+                                        .group.hideOverflow(style='height:150px')
                                             p {{ item.description }}
+
                                         .row
-                                            h4.col-xs-12.col-md-6
+                                            h4.col-xs-6.col-md-6
                                                 | $ {{ item.price }}
 
-                                            .col-xs-12.col-md-6
-                                                .btn.btn-success(ng-click="addItem(item)")
+                                            .col-xs-6.col-md-6
+                                                .btn.btn-success.btn-sm(ng-click="addItem(item)")
                                                     | Add to cart
 
-    script.
-        console.log("testing");
-        var local_data =!{JSON.stringify(data)};
-        console.log(local_data);
 
-    script(src='/js/app.js')
 
 
 
