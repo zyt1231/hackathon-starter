@@ -9,16 +9,16 @@ block content
     script(src='/js/app.js')
     .container(ng-app='product',ng-controller='productCtrl')
         ul.nav.navbar-nav.navbar-right
-            li(class=(title == 'Cart') ? 'active' : undefined)
-                btn.btn.btn-success(type='button', href='http://www.jquery2dotnet.com')
+            li(class=(title == 'cart') ? 'active' : undefined)
+                button.btn.btn-success(type='button', onclick='viewCart()', href='/cart')
                     span.fa.fa-shopping-cart
-                        | &nbsp;&nbsp;Cart ({{cartItems.length}}) - $ {{totalPrice}}
+                        | &nbsp;&nbsp;Cart ({{totalQuantity}}) - $ {{totalPrice}}
 
         ul
             p(style="text-align:center;color:#980000;font-family: 'Comic Sans MS'; font-size:35px;")
                 b
                     | The Jewelry Shop
-        .row
+        #product.row
             .col-md-3
                 .panel.panel-default
                     .panel-heading
@@ -105,7 +105,7 @@ block content
                                         p {{ item.title }}
                                     .hideOverflow
                                         b.row.group.inner
-                                                | Brand : {{item.brand}}
+                                            | Brand : {{item.brand}}
                                         .group.hideOverflow(style='height:150px')
                                             p {{ item.description }}
 
@@ -117,7 +117,42 @@ block content
                                                 .btn.btn-success.btn-sm(ng-click="addItem(item)")
                                                     | Add to cart
 
-
+        .row
+            table#cart.table.table-hover.table-condensed
+                thead
+                    tr
+                        th(style='width:72%') Product
+                        th(style='width:10%') Price
+                        th(style='width:8%') Quantity
+                        th(style='width:10%')
+                tbody
+                    tr(ng-repeat='(sku,dict) in cartItems')
+                        //td {{item.title}}
+                        td(data-th='Product')
+                            .row
+                                .col-sm-2.hidden-xs
+                                    img.img-responsive(src='{{dict.img}}', alt='...', style='height:100px')
+                                .col-sm-10
+                                    h4.nomargin {{dict.title}}
+                                    p {{dict.description}}
+                        td(data-th='Price') ${{dict.price}}
+                            td(data-th='Quantity')
+                                input.form-control.text-center(type='number', ng-model="dict.cart_quantity")
+                            td.actions(data-th='')
+                                button.btn.btn-info.btn-sm(ng-click="updateCart(sku)")
+                                    i.fa.fa-refresh
+                                button.btn.btn-danger.btn-sm(ng-click="removeItem(sku)")
+                                    i.fa.fa-trash-o
+                        tfoot
+                            tr
+                                td
+                                    button.btn.btn-warning(onclick='continueShopping()')
+                                        i.fa.fa-angle-left
+                                        |  Continue Shopping
+                                td.hidden-xs(colspan='2')
+                                td.hidden-xs.text-center
+                                    strong Total ${{totalPrice}}
+                                td
 
 
 
