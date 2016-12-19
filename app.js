@@ -35,8 +35,6 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const productController = require('./controllers/product');
-const cartController = require('./controllers/cart');
-
 
 /**
  * API keys and Passport configuration.
@@ -220,9 +218,7 @@ app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRed
 /**
  * Shop routes
  */
-
 app.get('/product', productController.getProducts);
-app.get('/cart', cartController.getCart);
 //
 /**
  * Error Handler.
